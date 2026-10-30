@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="bn" style="background:#07070d">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>আমার টিউশন রুটিন</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#07070d">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23080915'/%3E%3Cpath d='M18 62 Q50 14 82 62' fill='none' stroke='%23ffd166' stroke-width='7' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='36' r='7' fill='%23ffd166'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="টিউশন রুটিন">
+<!-- fonts load in the background (media=print trick): the app starts at once even on a very slow connection, and the fonts swap in when ready -->
+<noscript></noscript>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- fonts load in the background (media=print trick): the app starts at once even on a very slow connection, and the fonts swap in when ready -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&family=Hind+Siliguri:wght@400;500;600;700&family=Tiro+Bangla:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" media="print" onload="this.onload=null;this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&family=Hind+Siliguri:wght@400;500;600;700&family=Tiro+Bangla:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="splash" aria-hidden="true">
+  <svg class="sp-mark" viewBox="0 0 64 64">
+    <defs><linearGradient id="spg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8893a"/><stop offset=".5" stop-color="#f6e4ae"/><stop offset="1" stop-color="#b8893a"/></linearGradient>
+    <radialGradient id="sps" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fffbe9"/><stop offset="1" stop-color="#e2bd6c"/></radialGradient></defs>
+    <path class="sp-arc" pathLength="1" d="M10 50 Q32 6 54 50" fill="none" stroke="url(#spg)" stroke-width="5.5" stroke-linecap="round"/>
+    <circle class="sp-sun" cx="32" cy="28" r="4.6" fill="url(#sps)"/>
+  </svg>
+  <div class="sp-title">আমার টিউশন রুটিন</div>
+  <div class="sp-line"><i></i></div>
+</div>
+<script>try{var s=document.getElementById('splash');if(sessionStorage.getItem('sp')){s.remove();}else{sessionStorage.setItem('sp','1');}}catch(e){}</script>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="topbar-logo">🎓</span>
+    <span class="topbar-title">আমার টিউশন</span>
+    <span class="topbar-dot" id="topbarLiveDot" style="display:none;"></span>
+    <button class="topbar-search-btn" onclick="openNotificationCenter()" title="নোটিফিকেশন" style="margin-left:auto;position:relative;"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10a6 6 0 0 1 12 0c0 4 1.5 5.5 1.5 5.5H4.5S6 14 6 10Z"/><path d="M9.5 18a2.5 2.5 0 0 0 5 0"/></svg></span><span class="notif-badge" id="notifCenterBadge" style="display:none;"></span></button>
+    <button class="topbar-search-btn" onclick="openSearchModal()" title="খুঁজো"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg></span></button>
+    <button class="topbar-search-btn" id="topMenuBtn" onclick="toggleTopMenu(event)" title="মেনু" aria-label="মেনু" aria-haspopup="true" aria-expanded="false" style="margin-left:0;"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span></button>
+  </div>
+
+  <!-- ================= HOME TAB ================= -->
+  <div class="tab-page" id="pageHome">
+
+  <div class="home-greet" id="homeGreet"></div>
+  <div id="tipBox"></div>
+  <div id="wrapUpBox"></div>
+
+  <!-- ================= NEXT / NOW — the one thing that matters most, right up top ================= -->
+  <div class="next-panel" id="nextPanel">
+    <div class="np-row">
+      <div class="np-ring" id="npRing"><div class="np-ring-inner" id="npRingInner">⏳</div></div>
+      <div class="np-body">
+        <div class="np-label" id="npLabel">লোড হচ্ছে…</div>
+        <div class="np-title" id="npTitle">—</div>
+        <div class="np-sub" id="npSub"></div>
+        <div class="np-clock" id="npClock" style="display:none;"></div>
+      </div>
+    </div>
+    <div class="np-then" id="npThen" style="display:none;"></div>
+  </div>
+
+  <div class="kpi-row" id="kpiRow"><div class="skel sk-kpi"></div><div class="skel sk-kpi"></div><div class="skel sk-kpi"></div><div class="skel sk-kpi"></div></div>
+
+  <div id="backupNagBox"></div>
+  <div id="dueReminderBox"></div>
+  <div id="absenceRiskBox"></div>
+
+  <div id="todayGoal"></div>
+
+  <div class="today-list-wrap">
+    <div class="eyebrow">📅 আজকের সব ক্লাস</div>
+    <div id="todayList"><div class="skel sk-row"></div><div class="skel sk-row"></div><div class="skel sk-row"></div></div>
+  </div>
+
+  <!-- ================= HERO / LIVE ARC (decorative — the day's shape at a glance) ================= -->
+  <div class="hero">
+    <div class="eyebrow"><span class="lockdot"></span> সাপ্তাহিক রুটিন · শুধু দেখার জন্য</div>
+    <h1>আমার টিউশন রুটিন</h1>
+    <div class="sub">শনিবার থেকে শুক্রবার · সকাল ৬:১০ – রাত ৯:৩০</div>
+    <div class="live-clock" id="liveClock"></div>
+
+    <div class="arc-wrap">
+      <div class="arc-stars"></div>
+      <span class="arc-icon sunrise">🌅</span>
+      <span class="arc-icon moon">🌙</span>
+      <svg class="arc-svg" viewBox="0 0 1000 150" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ff6b4a"/>
+            <stop offset="22%" stop-color="#ffb020"/>
+            <stop offset="45%" stop-color="#2dd4bf"/>
+            <stop offset="62%" stop-color="#a855f7"/>
+            <stop offset="80%" stop-color="#f43f8d"/>
+            <stop offset="100%" stop-color="#5b6cf6"/>
+          </linearGradient>
+          <filter id="arcBlur" x="-30%" y="-200%" width="160%" height="500%">
+            <feGaussianBlur stdDeviation="7"/>
+          </filter>
+        </defs>
+        <path class="arc-base" d="M40,120 Q500,-10 960,120" fill="none" stroke="url(#arcGrad)" stroke-width="2.5" stroke-linecap="round" opacity="0.14"/>
+        <path id="arcGlow" d="M40,120 Q500,-10 960,120" fill="none" stroke="url(#arcGrad)" stroke-width="11" stroke-linecap="round" filter="url(#arcBlur)" opacity="0.55"/>
+        <path id="arcProgress" d="M40,120 Q500,-10 960,120" fill="none" stroke="url(#arcGrad)" stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
+      <div id="arcStops"></div>
+      <div class="arc-marker" id="arcMarker"></div>
+    </div>
+  </div>
+
+  <!-- ================= FOCUS / MOTIVATION (nice-to-have, pushed to the end) ================= -->
+  <div class="focus-card" id="focusCard">
+    <div class="eyebrow">🔥 আজকের বুস্টার</div>
+    <div class="fc-quote" id="fcQuote"></div>
+    <div class="fc-day" id="fcDay"></div>
+    <div class="fc-divider"><div class="fc-rows" id="fcRows"></div></div>
+    <button type="button" class="fc-growth-btn" id="fcGrowthBtn" onclick="toggleGrowth()" aria-expanded="false"></button>
+    <div class="fc-rows fc-growth" id="fcGrowth" style="display:none;"></div>
+    <div class="fc-stats" id="fcStats"></div>
+    <div class="fc-foot" id="fcFoot"></div>
+    <div class="fc-why" id="fcWhy" style="display:none;"></div>
+  </div>
+
+  </div><!-- /pageHome -->
+
+  <!-- ================= SCHEDULE TAB ================= -->
+  <div class="tab-page" id="pageSchedule" style="display:none;">
+
+  <div class="lock-strip" id="lockStrip"></div>
+
+  <div class="cmd-wrap">
+    <div class="cmd-eyebrow">💬 লিখে বলো</div>
+    <div class="cmd-bar">
+      <input type="text" id="cmdInput" class="cmd-input" placeholder="যেমন: রিমি ১৫০০ বিকাশ  /  সাকিরাকে আজ সাড়ে ৯টায় নাও" onkeydown="if(event.key==='Enter') submitCommand();">
+      <button class="cmd-mic" data-mic="cmdInput" onclick="startVoice('cmdInput',{submit:true})" aria-label="বলে লেখো">🎤</button>
+      <button class="cmd-go" onclick="submitCommand()">বুঝে নাও</button>
+    </div>
+    <div class="cmd-examples" id="cmdExamples"></div>
+    <div id="cmdResult"></div>
+  </div>
+
+  <div class="icon-legend">
+    <span>👆 নামে ট্যাপ করলেই বদলানো যায়</span>
+    <span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h9l4 4V19a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"/><path d="M14.5 3.5V7a1 1 0 0 0 1 1H19M8 12h8M8 15.5h5"/></svg></span> নোট ও উপস্থিতি</span>
+    <span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13.5M17.5 8 14 4.5M17.5 8 14 11.5"/><path d="M20 16H6.5M6.5 16 10 12.5M6.5 16 10 19.5"/></svg></span> অন্য সময়ে নাও</span>
+    <span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="M6.5 6.5l11 11"/></svg></span> ছুটি/বাতিল</span>
+  </div>
+
+  <div class="week-load-wrap">
+    <div class="eyebrow">📊 সপ্তাহের চাপ</div>
+    <div class="week-load" id="weekLoad"></div>
+  </div>
+
+  <div class="view-switch">
+    <button class="active" id="vDayBtn">দিন ভিত্তিক</button>
+    <button id="vWeekBtn">সম্পূর্ণ সপ্তাহ</button>
+  </div>
+
+  <div class="day-tabs" id="dayTabs"></div>
+
+  <div id="dayView"></div>
+  <div id="weekView" style="display:none;">
+    <div class="table-scroll">
+      <table id="weekTable"></table>
+    </div>
+  </div>
+
+  </div><!-- /pageSchedule -->
+
+  <!-- ================= STUDENTS TAB ================= -->
+  <div class="tab-page" id="pageStudents" style="display:none;">
+    <div class="page-head">
+      <div class="page-head-title">👨‍🎓 শিক্ষার্থীরা</div>
+      <div class="page-head-sub" id="studentsCount"></div>
+    </div>
+    <div class="st-actions">
+      <button class="settings-btn st-add" onclick="openAddStudentModal()"><span class="ic"></span> নতুন শিক্ষার্থী</button>
+      <button class="settings-btn st-pay" onclick="openBatchPay()">💰 মাসের পেমেন্ট</button>
+    </div>
+    <div class="st-search"><span class="st-search-ic">🔍</span><input type="search" id="studentSearch" placeholder="নাম বা ক্লাস দিয়ে খোঁজো" oninput="onStudentSearch(this.value)"></div>
+    <div class="st-filters" id="studentFilters"></div>
+    <div id="studentsList"></div>
+    <div class="phase-note">📌 নতুন ছাত্র/ছাত্রী যোগ করতে উপরের বাটন ব্যবহার করো। কাউকে বাদ দিতে বা তথ্য মুছতে, তার প্রোফাইলে গিয়ে এডিট মোডে "বিপজ্জনক অঞ্চল" অংশটা দেখো।</div>
+  </div>
+
+  <!-- ================= KHATA TAB (personal ledger) ================= -->
+  <div class="tab-page" id="pageKhata" style="display:none;">
+    <div class="page-head"><div class="page-head-title">📒 আমার খাতা</div><div class="page-head-sub">বাকি-পাওনা আর ব্যক্তিগত হিসাব</div></div>
+    <div id="khataBody"></div>
+  </div>
+
+  <!-- ================= REPORTS TAB ================= -->
+  <div class="tab-page" id="pageReports" style="display:none;">
+    <div class="page-head">
+      <div class="page-head-title">📊 ইনসাইট ও রিপোর্ট</div>
+    </div>
+    <div id="reportsBody"></div>
+  </div>
+
+  <!-- ================= SETTINGS TAB ================= -->
+  <div class="tab-page" id="pageSettings" style="display:none;">
+    <div class="page-head">
+      <div class="page-head-title">⚙️ সেটিংস</div>
+    </div>
+    <div id="settingsBody"></div>
+    <footer class="actions">
+      <button id="printBtn" class="primary">🖨️ প্রিন্ট করুন (সম্পূর্ণ সপ্তাহ)</button>
+    </footer>
+  </div>
+
+</div><!-- /wrap -->
+
+
+<div class="tm-overlay" id="topMenuOv" onclick="closeTopMenu()"></div>
+<div class="tm-sheet" id="topMenu" role="menu" aria-label="মেনু">
+  <button type="button" role="menuitem" data-tab="reports" onclick="topMenuGo('reports')"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg></span><b>রিপোর্ট</b><small>আয়, বকেয়া, সারাংশ</small></button>
+  <button type="button" role="menuitem" data-tab="settings" onclick="topMenuGo('settings')"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></span><b>সেটিংস</b><small>নোটিফিকেশন, থিম, নিরাপত্তা</small></button>
+  <button type="button" role="menuitem" onclick="closeTopMenu();fxOpen()"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17c4-1 5-6 9-6s5 4 9 3M3 12c4 0 5-5 9-5s5 3 9 2"/></svg></span><b>ভবিষ্যৎ-যন্ত্র</b><small>সম্ভাব্য আয়ের পরিসর</small></button>
+  <button type="button" role="menuitem" onclick="closeTopMenu();glxOpen()"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(-25 12 12)"/><circle cx="19" cy="8.5" r="1"/></svg></span><b>ছাত্র-গ্যালাক্সি</b><small>ত্রিমাত্রিক ব্রহ্মাণ্ড</small></button>
+  <button type="button" role="menuitem" onclick="closeTopMenu();vrOpen()"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></span><b>ক্লাস রিপোর্ট</b><small>বলো → অভিভাবকের মেসেজ</small></button>
+  <button type="button" role="menuitem" onclick="closeTopMenu();qpOpen()"><span>📝</span><b>নোট ও প্রশ্নপত্র</b><small>AI খসড়া → প্রিন্ট</small></button>
+  <button type="button" role="menuitem" onclick="closeTopMenu();resOpen()"><span>📊</span><b>ফল ও দুর্বলতা</b><small>পরীক্ষার ফল, রিপোর্ট</small></button>
+  <button type="button" role="menuitem" onclick="closeTopMenu();feeOpen()"><span>🧾</span><b>ফি ও হাজিরা</b><small>ছাড়, রিভার্স, হিসাব মেলানো</small></button>
+  <button type="button" role="menuitem" onclick="closeTopMenu();exportBackup()"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 10.5a3.8 3.8 0 0 1-.5 7.5z"/><path d="M12 18v-5m0 0l-2.2 2.2M12 13l2.2 2.2"/></svg></span><b>ব্যাকআপ নাও</b><small>সব ডেটা ফাইলে সেভ</small></button>
+  <button type="button" role="menuitem" onclick="closeTopMenu();switchTab('khata');khToolsMenu()"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="8" width="17" height="11.5" rx="2.5"/><path d="M9 8V6.5A1.5 1.5 0 0 1 10.5 5h3A1.5 1.5 0 0 1 15 6.5V8M3.5 13h17"/></svg></span><b>খাতা টুলস</b><small>রিপিট, বাজেট, PDF, CSV</small></button>
+</div>
+<div class="bottom-nav">
+  <span class="nav-ind" id="navInd"></span>
+  <button class="nav-btn active" id="navHome" onclick="switchTab('home')"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9"/></svg></span><span class="nav-lb">হোম</span></button>
+  <button class="nav-btn" id="navSchedule" onclick="switchTab('schedule')"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.2"/><path d="M3.5 9.5h17M8 3v3.4M16 3v3.4"/><path d="M7.7 13.2h2.2M11.9 13.2h2.2M16.1 13.2h1M7.7 16.8h2.2M11.9 16.8h2.2"/></svg></span><span class="nav-lb">সিডিউল</span></button>
+  <button class="nav-btn" id="navStudents" onclick="switchTab('students')"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M4.8 20c.6-3.6 3.4-6 7.2-6s6.6 2.4 7.2 6"/></svg></span><span class="nav-lb">শিক্ষার্থী</span></button>
+  <button class="nav-btn" id="navKhata" onclick="switchTab('khata')"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M9 8h6M9 12h4"/></svg></span><span class="nav-lb">খাতা</span></button>
+</div>
+
+<div class="modal-overlay" id="noteModal" style="display:none;">
+  <div class="modal-box modal-box-lg">
+    <div class="notesdb-head">
+      <div class="modal-title" id="noteModalTitle" style="margin:0;">সেশন</div>
+      <button class="notesdb-close" onclick="closeNoteModal()">✕</button>
+    </div>
+    <div class="modal-scroll-body" id="noteModalBody"></div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeNoteModal()">বাতিল</button>
+      <button class="modal-btn primary" onclick="saveNoteModal()">সেভ করো</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="moveModal" style="display:none;">
+  <div class="modal-box">
+    <button class="modal-close-x" onclick="closeMoveModal()">✕</button>
+    <div class="modal-title" id="moveModalTitle"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13.5M17.5 8 14 4.5M17.5 8 14 11.5"/><path d="M20 16H6.5M6.5 16 10 12.5M6.5 16 10 19.5"/></svg></span> কোন সময়ে নেবে?</div>
+    <div class="move-opts" id="moveOptions"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="renameModal" style="display:none;">
+  <div class="modal-box">
+    <button class="modal-close-x" onclick="closeRenameModal()">✕</button>
+    <div class="modal-title" id="renameModalTitle"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10.5-10.5a2 2 0 0 0 0-2.8l-1.2-1.2a2 2 0 0 0-2.8 0L4 16v4Z"/><path d="M13.5 6.5l3 3"/></svg></span> কে থাকবে?</div>
+    <input type="text" id="renameInput" class="cmd-input" style="width:100%;box-sizing:border-box;" placeholder="নাম লেখো (একাধিক হলে কমা দিয়ে আলাদা করো)" onkeydown="if(event.key==='Enter') saveRenameModal();">
+    <div class="modal-actions">
+      <button class="modal-btn primary" style="width:100%;" onclick="saveRenameModal()">সেভ করো</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="addStudentModal" style="display:none;">
+  <div class="modal-box modal-box-lg">
+    <div class="notesdb-head">
+      <div class="modal-title" style="margin:0;"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span> নতুন ছাত্র/ছাত্রী যোগ করো</div>
+      <button class="notesdb-close" onclick="closeAddStudentModal()">✕</button>
+    </div>
+    <div class="modal-scroll-body">
+      <div class="sm-field">
+        <label class="sm-field-label">নাম</label>
+        <input type="text" id="newStudentName" class="sm-field-input" placeholder="যেমন: রাফি" onkeydown="if(event.key==='Enter') saveNewStudent();">
+      </div>
+      <div class="sm-section-title" style="margin-top:12px;">কোন দিন, কোন সময়ে ক্লাস হবে?</div>
+      <div id="newStudentDayRows"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn primary" style="width:100%;" onclick="saveNewStudent()">যোগ করো</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="yirModal" style="display:none;">
+  <div class="modal-box">
+    <button class="modal-close-x" onclick="closeYearInReview()">✕</button>
+    <div id="yirBody"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="notifCenterModal" style="display:none;">
+  <div class="modal-box modal-box-lg">
+    <div class="notesdb-head">
+      <div class="modal-title" style="margin:0;">🔔 নোটিফিকেশন সেন্টার</div>
+      <button class="notesdb-close" onclick="closeNotificationCenter()">✕</button>
+    </div>
+    <div class="modal-scroll-body" id="notifCenterBody"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="searchModal" style="display:none;">
+  <div class="modal-box modal-box-lg">
+    <div class="notesdb-head">
+      <div class="modal-title" style="margin:0;">🔍 খুঁজো</div>
+      <button class="notesdb-close" onclick="closeSearchModal()">✕</button>
+    </div>
+    <input type="text" id="searchInput" class="cmd-input" style="width:100%;box-sizing:border-box;margin-bottom:12px;flex-shrink:0;" placeholder="নাম, নোট, হোমওয়ার্ক দিয়ে খুঁজো..." oninput="runSearch(this.value)">
+    <div class="modal-scroll-body" id="searchResults"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="sessionModal" style="display:none;">
+  <div class="modal-box modal-box-lg">
+    <div class="notesdb-head">
+      <div class="modal-title" style="margin:0;">🎓 সেশন ম্যানেজমেন্ট</div>
+      <button class="notesdb-close" onclick="closeSessionManager()">✕</button>
+    </div>
+    <div class="modal-scroll-body" id="sessionModalBody"></div>
+  </div>
+</div>
+
+<div id="printReportArea" class="print-report-only"></div>
+
+<div class="modal-overlay" id="notesDbModal" style="display:none;">
+  <div class="modal-box modal-box-lg">
+    <div class="notesdb-head">
+      <div class="modal-title" style="margin:0;">📔 নোট ডেটাবেজ</div>
+      <button class="notesdb-close" onclick="closeNotesDatabase()">✕</button>
+    </div>
+    <div class="notesdb-modes" style="flex-shrink:0;">
+      <button class="notesdb-mode-btn active" id="ndbModeDaily" onclick="setNotesDbMode('daily')">দৈনিক</button>
+      <button class="notesdb-mode-btn" id="ndbModeWeekly" onclick="setNotesDbMode('weekly')">সাপ্তাহিক</button>
+      <button class="notesdb-mode-btn" id="ndbModeMonthly" onclick="setNotesDbMode('monthly')">মাসিক</button>
+    </div>
+    <div class="notesdb-nav" style="flex-shrink:0;">
+      <button class="notesdb-nav-btn" onclick="navigateNotesDb(-1)">‹</button>
+      <div class="notesdb-period-label" id="ndbPeriodLabel"></div>
+      <button class="notesdb-nav-btn" onclick="navigateNotesDb(1)">›</button>
+    </div>
+    <select id="ndbStudentFilter" class="sm-field-input" style="margin-bottom:10px;flex-shrink:0;display:none;" onchange="onNdbStudentFilter(this.value)"></select>
+    <button class="settings-btn" id="ndbCopyAllBtn" onclick="copyAllNotesInRange()" style="margin-bottom:12px;flex-shrink:0;"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8 15.8 6.7M8.2 13.2l7.6 4.1"/></svg></span> এই পুরো তালিকা কপি করো</button>
+    <div class="modal-scroll-body" id="notesDbBody"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="studentModal" style="display:none;">
+  <div class="modal-box modal-box-lg">
+    <div class="notesdb-head">
+      <div class="modal-title" id="studentModalTitle" style="margin:0;">👤 নাম</div>
+      <button class="notesdb-close" onclick="closeStudentModal()">✕</button>
+    </div>
+    <div class="modal-scroll-body" id="studentModalBody"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="batchPayModal" style="display:none;">
+  <div class="modal-box">
+    <div class="notesdb-head">
+      <div class="modal-title" style="margin:0;">💰 মাসের পেমেন্ট</div>
+      <button class="notesdb-close" onclick="closeBatchPay()">✕</button>
+    </div>
+    <div class="modal-scroll-body" id="batchPayBody"></div>
+  </div>
+</div>
+<div class="modal-overlay" id="khataModal" style="display:none;">
+  <div class="modal-box">
+    <div class="notesdb-head khata-head"><button class="notesdb-close khata-back" onclick="closeKhataModal()" aria-label="পেছনে">←</button><div class="modal-title" style="margin:0;flex:1;" id="khataModalTitle">খাতা</div><div id="khataModalAction"></div></div>
+    <div class="modal-scroll-body" id="khataModalBody"></div>
+  </div>
+</div>
+<div class="modal-overlay" id="receiptModal" style="display:none;">
+  <div class="modal-box">
+    <div class="notesdb-head">
+      <div class="modal-title" style="margin:0;">🧾 পেমেন্ট রসিদ</div>
+      <button class="notesdb-close" onclick="closeReceipt()">✕</button>
+    </div>
+    <div class="modal-scroll-body" id="receiptBody"></div>
+  </div>
+</div>
+
+<script src="app.js" defer></script>
+</body>
+</html>

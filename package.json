@@ -1,0 +1,13 @@
+{
+  "name": "tuition-routine-app",
+  "private": true,
+  "description": "Server-side push-notification functions for আমার টিউশন রুটিন. The app itself is a static PWA (index.html + style.css + js/*.js) with no build step — this package.json exists only so Netlify installs the two dependencies these Functions need.",
+  "dependencies": {
+    "web-push": "^3.6.7",
+    "@netlify/blobs": "^7.4.0"
+  },
+  "scripts": {
+    "test": "node build.js && node --test tests/money.test.js tests/khata-tools.test.js tests/khata-plus.test.js tests/autobackup.test.js tests/radar.test.js tests/smart.test.js tests/galaxy.test.js tests/think.test.js tests/future.test.js tests/kbrain.test.js tests/ai-server.test.js tests/ai-client.test.js tests/bio.test.js tests/v75.test.js tests/v75-ui.test.js tests/ui.test.js && node --check netlify/functions/subscribe.mjs && node --check netlify/functions/unsubscribe.mjs && node --check netlify/functions/send-reminders.mjs && node --check netlify/functions/backup.mjs && node --check netlify/functions/ai.mjs",
+    "build": "node build.js"
+  }
+}
